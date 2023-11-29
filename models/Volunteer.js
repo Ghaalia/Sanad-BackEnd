@@ -1,8 +1,35 @@
 const mongoose = require("mongoose");
 
 const VolunteerSchema = new mongoose.Schema({
-  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  first_name: { type: String, required: true },
+  last_name: { type: String, required: true },
+  gender: { type: String },
+  civil_id: { type: String },
+  dob: { type: String },
+  phone_number: { type: Number, required: true },
+  image: {
+    type: String,
+    default:
+      "https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg",
+  },
+  volunteer_events: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Participation",
+    },
+  ],
+  skills: { type: String },
+  donation_album: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "DonationAlbum",
+    },
+  ],
+  volunteer_record: { type: Number },
+  generated_link: { type: Number },
+  volunteer_points: { type: Number },
 });
 
 module.exports = mongoose.model("Volunteer", VolunteerSchema);
