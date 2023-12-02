@@ -6,11 +6,11 @@ const JWTStrategy = require("passport-jwt").Strategy;
 const { fromAuthHeaderAsBearerToken } = require("passport-jwt").ExtractJwt;
 
 const localStrategy = new LocalStartegy(
-  { emailField: "email" },
+  { usernameField: "email" },
   async (email, password, done) => {
     try {
       const volunteer = await Volunteer.findOne({ email: email });
-      if (!volunteer) return done({ message: "email or  password is wrong" });
+      if (!volunteer) return done({ message: "email or or password is wrong" });
       const checkpw = await bcrypt.compare(password, volunteer.password);
       if (!checkpw) return done({ message: "email or  password is wrong" });
       return done(null, volunteer);
