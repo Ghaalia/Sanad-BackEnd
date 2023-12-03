@@ -3,8 +3,8 @@ const mongoose = require("mongoose");
 const VolunteerSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  first_name: { type: String, required: true },
-  last_name: { type: String, required: true },
+  first_name: { type: String },
+  last_name: { type: String },
   gender: { type: String },
   civil_id: { type: String },
   dob: { type: String },
