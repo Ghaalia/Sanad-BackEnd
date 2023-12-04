@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const OrganizationSchema = new mongoose.Schema({
-  username: String,
   password: String,
   address: String,
   email: String,

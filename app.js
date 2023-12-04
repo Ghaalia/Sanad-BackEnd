@@ -11,7 +11,6 @@ const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
 
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
-const eventrouter = require("./Api/Event/event.routes");
 require("dotenv").config();
 
 app.use(cors());
@@ -25,8 +24,7 @@ passport.use("jwt", jWTStrategy);
 ADD ROUTES HERE
 */
 app.use("/api", userrouter);
-app.use("/api", eventrouter);
-app.use("/org", OrganizationRouter);
+app.use("/api", OrganizationRouter);
 
 // Not Found Path
 app.use(NotFound);

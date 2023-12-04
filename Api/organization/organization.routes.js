@@ -10,24 +10,24 @@ const {
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
-OrganizationRouter.post("org/register", upload.single("logo"), register);
+OrganizationRouter.post("/org/register", upload.single("logo"), register);
 
 OrganizationRouter.post(
-  "org/signin",
+  "/org/signin",
   passport.authenticate("local", { session: false }),
   signin
 ); // Login
 
-OrganizationRouter.get("org/allOrganizations", getAllOrganizations);
+OrganizationRouter.get("/org/allOrganizations", getAllOrganizations);
 
 OrganizationRouter.put(
-  "org/update-my-profile",
+  "/org/update-my-profile",
   passport.authenticate("jwt", { session: false }),
   updateProfile
 );
 
 OrganizationRouter.get(
-  "org/get-my-profile",
+  "/org/get-my-profile",
   passport.authenticate("jwt", { session: false }),
   getProfile
 );
