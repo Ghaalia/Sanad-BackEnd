@@ -16,7 +16,7 @@ const userrouter = express.Router();
 userrouter.post("/user/register", upload.single("image"), register);
 
 userrouter.post(
-  "/user/login",
+  "/user/signin",
   passport.authenticate("local", { session: false }),
   signin
 );
