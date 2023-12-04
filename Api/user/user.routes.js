@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../../models/User");
 const { register, signin, getAllUsers } = require("./user.controllers");
 const passport = require("passport");
-const upload = require("../../middlewares/multer");
+const upload = require("../../middleware/multer");
 
 const userrouter = express.Router();
 
