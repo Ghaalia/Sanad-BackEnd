@@ -8,6 +8,7 @@ const { NotFound } = require("./middleware/NotFound");
 const { ErrorHandler } = require("./middleware/ErrorHandler");
 const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
+const OrganizationRouter = require("./api/organization/organization.routes");
 
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
 require("dotenv").config();
@@ -23,6 +24,7 @@ passport.use("jwt", jWTStrategy);
 ADD ROUTES HERE
 */
 app.use("/api", userrouter);
+app.use("/org", OrganizationRouter);
 
 // Not Found Path
 app.use(NotFound);

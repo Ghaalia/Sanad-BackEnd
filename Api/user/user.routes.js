@@ -2,7 +2,6 @@ const express = require("express");
 const User = require("../../models/User");
 const { register, signin, getAllUsers } = require("./user.controllers");
 const passport = require("passport");
-
 const userrouter = express.Router();
 
 userrouter.post("/register", register);
