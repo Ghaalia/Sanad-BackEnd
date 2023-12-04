@@ -1,4 +1,4 @@
-const Volunteer = require("../models/Volunteer");
+const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const LocalStartegy = require("passport-local").Strategy;
 require("dotenv").config();
@@ -9,11 +9,11 @@ const localStrategy = new LocalStartegy(
   { usernameField: "email" },
   async (email, password, done) => {
     try {
-      const volunteer = await Volunteer.findOne({ email: email });
-      if (!volunteer) return done({ message: "email or or password is wrong" });
-      const checkpw = await bcrypt.compare(password, volunteer.password);
+      const user = await User.findOne({ email: email });
+      if (!user) return done({ message: "email or or password is wrong" });
+      const checkpw = await bcrypt.compare(password, user.password);
       if (!checkpw) return done({ message: "email or  password is wrong" });
-      return done(null, volunteer);
+      return done(null, User);
     } catch (error) {
       done(error);
     }
@@ -28,9 +28,9 @@ const jWTStrategy = new JWTStrategy(
   async (payload, done) => {
     try {
       if (Date.now() / 1000 > payload.exp) return done(null, false);
-      const volunteer = await Volunteer.findById(payload.id);
-      if (!volunteer) return done(null, false);
-      return done(null, volunteer);
+      const user = await User.findById(payload.id);
+      if (!user) return done(null, false);
+      return done(null, user);
     } catch (error) {
       done(error);
     }

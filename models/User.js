@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const VolunteerSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   first_name: { type: String },
@@ -32,4 +32,4 @@ const VolunteerSchema = new mongoose.Schema({
   volunteer_points: { type: Number },
 });
 
-module.exports = mongoose.model("Volunteer", VolunteerSchema);
+module.exports = mongoose.model("User", UserSchema);

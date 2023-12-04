@@ -1,4 +1,4 @@
-const Volunteer = require("../../models/Volunteer");
+const User = require("../../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { json } = require("express");
@@ -9,10 +9,10 @@ const hashedPassword = async (password) => {
   return hashedPassword;
 };
 
-const generateToken = (volunteer) => {
+const generateToken = (user) => {
   const payload = {
-    id: volunteer._id,
-    email: volunteer.email,
+    id: user._id,
+    email: user.email,
   };
   return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: "24hr",
@@ -26,8 +26,8 @@ exports.register = async (req, res, next) => {
     if (req.file) {
       req.body.image = req.file.path;
     }
-    const newVolunteer = await Volunteer.create(req.body);
-    const token = generateToken(newVolunteer);
+    const newUser = await User.create(req.body);
+    const token = generateToken(newUser);
     return res.status(201).json({ token });
   } catch (error) {
     next(error);
@@ -43,7 +43,7 @@ exports.signin = async (req, res, next) => {
   }
 };
 
-exports.getAllVolunteer = async (req, res) => {
-  const volunteers = await Volunteer.find();
-  return res.status(201).json(volunteers);
+exports.getAllUsers = async (req, res) => {
+  const users = await User.find();
+  return res.status(201).json(users);
 };
