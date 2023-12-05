@@ -7,6 +7,8 @@ const OrganizationSchema = new mongoose.Schema({
   phone_number: Number,
   license: String,
   logo: String,
+  isAccepted: Boolean,
+  isAdmin: Boolean,
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   //   location_coordinates: { type: "Point", coordinates: [ 40, 5 ] },
   location_coordinates: String,

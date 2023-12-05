@@ -11,6 +11,7 @@ const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
 
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
+const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 require("dotenv").config();
 
 app.use(cors());
@@ -19,6 +20,9 @@ app.use(morgan("dev"));
 app.use(passport.initialize());
 passport.use("local", localStrategy);
 passport.use("jwt", jWTStrategy);
+
+passport.use("local2", localStrategy2);
+passport.use("jwt2", jWTStrategy2);
 
 /*
 ADD ROUTES HERE

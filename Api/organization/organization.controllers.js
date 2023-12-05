@@ -29,12 +29,18 @@ exports.register = async (req, res, next) => {
 
     if (req.file) {
       req.body.license = req.file.path;
-      //   req.body.logo = req.file.path;
+      req.body.logo = req.file.path;
     }
 
     const organizationUser = await Organization.create(req.body);
-    const token = generateToken(organizationUser);
-    return res.status(201).json({ token });
+
+    // const token = generateToken(organizationUser);
+
+    return res
+      .status(201)
+      .json(
+        `Thank you for registering, please await admin approval for access to your account`
+      );
   } catch (error) {
     next(error);
   }
