@@ -26,7 +26,7 @@ ADD ROUTES HERE
 */
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
-app.use("/org", OrganizationRouter);
+app.use("/api", OrganizationRouter);
 
 // Not Found Path
 app.use(NotFound);

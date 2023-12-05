@@ -10,10 +10,10 @@ const EventSchema = new mongoose.Schema({
   event_category: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "event_category",
+      ref: "Event_category",
     },
   ],
-  organization: { type: mongoose.Schema.Types.ObjectId, ref: "organization" },
+  organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
   volunteer_list: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -31,4 +31,4 @@ const EventSchema = new mongoose.Schema({
   event_status: { type: String, required: true },
 });
 
-module.exports = mongoose.model("event", EventSchema);
+module.exports = mongoose.model("Event", EventSchema);
