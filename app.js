@@ -28,6 +28,7 @@ passport.use("jwt2", jWTStrategy2);
 ADD ROUTES HERE
 */
 app.use("/api", userrouter);
+app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
 
 // Not Found Path
