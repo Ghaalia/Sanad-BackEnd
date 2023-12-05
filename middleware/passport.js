@@ -29,7 +29,6 @@ const jWTStrategy = new JWTStrategy(
     try {
       if (Date.now() / 1000 > payload.exp) return done(null, false);
       const user = await User.findById(payload.id);
-      console.log(payload);
       if (!user) return done(null, false);
       return done(null, user);
     } catch (error) {
