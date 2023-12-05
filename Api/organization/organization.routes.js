@@ -7,6 +7,7 @@ const {
   getAllOrganizations,
   updateProfile,
   getProfile,
+  createEvent,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
@@ -14,7 +15,6 @@ OrganizationRouter.post("/org/register", upload.single("logo"), register);
 
 OrganizationRouter.post(
   "/org/signin",
-
 
   passport.authenticate("local2", { session: false }),
 
@@ -35,4 +35,9 @@ OrganizationRouter.get(
   getProfile
 );
 
+OrganizationRouter.post(
+  "/org/event/:eventcategoryId",
+  passport.authenticate("jwt2", { session: false }),
+  createEvent
+);
 module.exports = OrganizationRouter;
