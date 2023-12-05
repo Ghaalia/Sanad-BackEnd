@@ -14,6 +14,7 @@ const generateToken = (user) => {
     id: user._id,
     email: user.email,
   };
+  console.log("payload", payload);
   return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: EXP_TIME,
   });
@@ -47,3 +48,38 @@ exports.getAllUsers = async (req, res) => {
   const users = await User.find();
   return res.status(201).json(users);
 };
+
+///// UPDATE USER
+exports.updateUser = async (req, res) => {
+  const userId = req.user._id;
+  const updatedUserData = req.body;
+  try {
+    const updatedUser = await User.findByIdAndUpdate(userId, updatedUserData, {
+      new: true,
+    });
+    if (!updatedUser) {
+      return res.status(404).json({ error: "user not found" });
+    }
+    res.json(updatedUser);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while updating the user." });
+  }
+};
+
+///// DELETE USER
+exports.deleteUser = async (req, res, next) => {
+  const userId = req.user._id;
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).json("The user doesn's exist");
+    }
+    res.status(200).json("Successfully deleted");
+  } catch (error) {
+    next(error);
+  }
+};
+
+//// GETPROFILE
