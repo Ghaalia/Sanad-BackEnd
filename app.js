@@ -9,7 +9,7 @@ const { ErrorHandler } = require("./middleware/ErrorHandler");
 const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
-
+const eventrouter = require("./api/Event/event.routes");
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
 const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 require("dotenv").config();
