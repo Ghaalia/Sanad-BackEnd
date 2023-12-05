@@ -14,7 +14,10 @@ OrganizationRouter.post("/org/register", upload.single("logo"), register);
 
 OrganizationRouter.post(
   "/org/signin",
-  passport.authenticate("local", { session: false }),
+
+
+  passport.authenticate("local2", { session: false }),
+
   signin
 ); // Login
 
@@ -22,13 +25,13 @@ OrganizationRouter.get("/org/allOrganizations", getAllOrganizations);
 
 OrganizationRouter.put(
   "/org/update-my-profile",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt2", { session: false }),
   updateProfile
 );
 
 OrganizationRouter.get(
   "/org/get-my-profile",
-  passport.authenticate("jwt", { session: false }),
+  passport.authenticate("jwt2", { session: false }),
   getProfile
 );
 
