@@ -53,11 +53,11 @@ exports.deleteEvent = async (req, res, next) => {
   }
 };
 
-exports.getUserEvent = async (req, res, next) => {
+exports.getOrgEvent = async (req, res, next) => {
   try {
-    const recipe = await Recipe.find({ user: req.user._id });
-    if (!recipe) return res.status(404).json("Recipe not found");
-    res.status(200).json(recipe);
+    const event = await Event.find({ organization: req.organization._id });
+    if (!event) return res.status(404).json("Event not found");
+    res.status(200).json(event);
   } catch (error) {
     next(error);
   }
