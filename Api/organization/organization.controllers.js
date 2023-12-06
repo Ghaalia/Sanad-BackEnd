@@ -2,6 +2,7 @@ const Organization = require("../../models/Organization");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Event = require("../../models/Event");
+const EventCategory = require("../../models/EventCategory");
 require("dotenv").config;
 
 const hashedPassword = async (password) => {
@@ -100,18 +101,17 @@ exports.createEvent = async (req, res, next) => {
       return res.status(400).json({ message: "Category ID is undefined" });
     }
 
-    const event = await Event.create(req.body);
+    const event = await Event?.create(req.body);
+    eventcategory?.events?.push(event._id);
+    await eventcategory?.save();
 
-    eventcategory.events.push(event._id);
-    await eventcategory.save();
-
-    await req.organization.updateOne({ $push: { events: event } });
+    await req.organization?.updateOne({ $push: { events: event } });
 
     await event.save();
     res
       .status(201)
       .json(
-        `The event: (${event.event_title}) has been added successfully to the categor: (${eventcategory.category_Name})`
+        `The event: (${event.event_title}) has been added successfully to the categor: (${eventcategory.category_name})`
       );
   } catch (error) {
     next(error);

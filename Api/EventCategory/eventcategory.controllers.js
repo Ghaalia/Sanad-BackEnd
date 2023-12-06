@@ -42,7 +42,9 @@ exports.createCategory = async (req, res, next) => {
     }
 
     await EventCategory.create(req.body);
-    return res.status(201).json({ message: "The category has been created" });
+    return res
+      .status(201)
+      .json({ message: ` (${req.body.category_name}) has been created` });
   } catch (error) {
     next(error);
   }
