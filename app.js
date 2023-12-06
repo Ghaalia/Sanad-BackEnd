@@ -10,6 +10,7 @@ const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
+const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
 const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 require("dotenv").config();
@@ -27,6 +28,7 @@ passport.use("jwt2", jWTStrategy2);
 /*
 ADD ROUTES HERE
 */
+app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);

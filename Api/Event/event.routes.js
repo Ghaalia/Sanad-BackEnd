@@ -9,7 +9,7 @@ eventrouter.get("/allevents", getAllEvents);
 
 eventrouter.delete(
   "/event/:eventId",
-  passport.authenticate("jwt", { session: false }),
+  // passport.authenticate("jwt", { session: false }),
   deleteEvent
 );
 
