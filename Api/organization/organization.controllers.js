@@ -21,6 +21,7 @@ const generateToken = (user) => {
 
 exports.register = async (req, res, next) => {
   try {
+    console.log("1");
     if (!req.body.password) {
       return res.status(400).json({ message: "Password is required" });
     }
@@ -57,8 +58,18 @@ exports.signin = (req, res, next) => {
 
 exports.getAllOrganizations = async (req, res, next) => {
   try {
-    const organizations = await Organization.find();
+    const organizations = await Organization.find({ isAccepted: "Pending" });
     return res.status(201).json(organizations);
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getOrganizationsById = async (req, res, next) => {
+  try {
+    const organization = await Organization.findById(req._id);
+    if (organization) return res.status(201).json(organization);
+    return res.status(404).json("Organization not found");
   } catch (error) {
     next(error);
   }

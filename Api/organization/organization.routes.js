@@ -7,6 +7,9 @@ const {
   getAllOrganizations,
   updateProfile,
   getProfile,
+  getOneOrganization,
+  getOrganizationsById,
+  approveOrg,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
@@ -19,6 +22,7 @@ OrganizationRouter.post(
 ); // Login
 
 OrganizationRouter.get("/org/allOrganizations", getAllOrganizations);
+// OrganizationRouter.get("/org/:orgId", getOrganizationsById);
 
 OrganizationRouter.put(
   "/org/update-my-profile",
