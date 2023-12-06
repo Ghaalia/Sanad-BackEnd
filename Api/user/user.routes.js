@@ -6,6 +6,7 @@ const {
   getAllUsers,
   deleteUser,
   updateUser,
+  getMyProfile,
 } = require("./user.controllers");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
