@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const OrganizationSchema = new mongoose.Schema({
+  org_name: String,
   password: String,
   address: String,
   email: String,

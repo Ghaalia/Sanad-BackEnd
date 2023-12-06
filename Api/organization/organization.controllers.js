@@ -85,7 +85,7 @@ exports.getProfile = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
   try {
-    req.body.user = req.user._id;
+    // req.body.user = req.user._id;
     const { eventcategoryId } = req.params;
     const eventcategory = await EventCategory.findById(eventcategoryId);
     if (!eventcategory) {

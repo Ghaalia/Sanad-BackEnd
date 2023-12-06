@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const EventCategorySchema = new mongoose.Schema({
-  category_Name: { type: String, required: true },
+  category_name: { type: String, required: true },
   events: [
     {
       type: mongoose.Schema.Types.ObjectId,

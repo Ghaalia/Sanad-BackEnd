@@ -37,7 +37,8 @@ OrganizationRouter.get(
 
 OrganizationRouter.post(
   "/org/event/:eventcategoryId",
-  passport.authenticate("jwt2", { session: false }),
+  // passport.authenticate("jwt2", { session: false }),
   createEvent
 );
+
 module.exports = OrganizationRouter;
