@@ -14,8 +14,9 @@ const localStrategy2 = new LocalStartegy(
       const checkpw = await bcrypt.compare(password, user.password);
       if (!checkpw) return done({ message: "Email or  Password is wrong" });
 
-      if (!user.isAccepted)
-        return done({ message: "Account is waiting for approve" });
+      if (user.isAccepted == "Pending")
+        return done({ message: "Account is waiting for approval" });
+
       return done(null, Organization);
     } catch (error) {
       done(error);
