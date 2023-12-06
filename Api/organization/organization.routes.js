@@ -11,6 +11,7 @@ const {
   getOneOrganization,
   getOrganizationsById,
   approveOrg,
+  OrgApproveById,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
@@ -44,5 +45,7 @@ OrganizationRouter.post(
   // passport.authenticate("jwt2", { session: false }),
   createEvent
 );
+
+OrganizationRouter.put(`/org/approve`, OrgApproveById);
 
 module.exports = OrganizationRouter;
