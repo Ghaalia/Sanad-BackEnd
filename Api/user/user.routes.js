@@ -4,7 +4,10 @@ const {
   register,
   signin,
   getAllUsers,
+<<<<<<< HEAD
   // getMyProfile,
+=======
+>>>>>>> 5970fc09a6c123725a7c5ca2dae495fcee34a111
   deleteUser,
   updateUser,
 } = require("./user.controllers");

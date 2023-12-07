@@ -12,7 +12,7 @@ const hashedPassword = async (password) => {
 const generateToken = (user) => {
   const payload = {
     id: user._id,
-    username: user.username,
+    name: user.name,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.EXP_TIME,
@@ -49,9 +49,10 @@ exports.register = async (req, res, next) => {
   }
 };
 
-exports.signin = (req, res, next) => {
+exports.signin = async (req, res, next) => {
   try {
-    const token = generateToken(req.user);
+    const token = await generateToken(req.user);
+    console.log(" i am not the token");
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -79,15 +80,27 @@ exports.OrgApproveById = async (req, res, next) => {
   }
 };
 
-exports.getOrganizationsById = async (req, res, next) => {
+exports.OrgRejectById = async (req, res, next) => {
   try {
-    const organization = await Organization.findById(req._id);
-    if (organization) return res.status(201).json(organization);
-    return res.status(404).json("Organization not found");
+    const orgId = await Organization.findById(req.body);
+    console.log(orgId);
+    if (!orgId) return res.status(404).json("Organization not found");
+    await orgId.updateOne({ isAccepted: "Rejected" });
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
 };
+
+// exports.getOrganizationsById = async (req, res, next) => {
+//   try {
+//     const organization = await Organization.findById(req._id);
+//     if (organization) return res.status(201).json(organization);
+//     return res.status(404).json("Organization not found");
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 exports.updateProfile = async (req, res, next) => {
   try {
@@ -109,7 +122,7 @@ exports.getProfile = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
   try {
-    // req.body.user = req.user._id;
+    req.body.user = req.user._id;
     const { eventcategoryId } = req.params;
     const eventcategory = await EventCategory.findById(eventcategoryId);
     if (!eventcategory) {
