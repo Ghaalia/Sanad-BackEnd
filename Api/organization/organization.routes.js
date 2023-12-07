@@ -8,10 +8,8 @@ const {
   updateProfile,
   getProfile,
   createEvent,
-  getOneOrganization,
-  getOrganizationsById,
-  approveOrg,
   OrgApproveById,
+  OrgRejectById,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
@@ -47,5 +45,6 @@ OrganizationRouter.post(
 );
 
 OrganizationRouter.put(`/org/approve`, OrgApproveById);
+OrganizationRouter.put(`/org/reject`, OrgRejectById);
 
 module.exports = OrganizationRouter;
