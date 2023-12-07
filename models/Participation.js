@@ -1,5 +1,19 @@
 const mongoose = require("mongoose");
 
-const ParticipationSchema = new mongoose.Schema({});
+const participationSchema = new mongoose.Schema({
+  status: String,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  event: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Event",
+  },
+  attended: Boolean,
+  rejection_msg: String,
+});
 
-module.exports = mongoose.model("Participation", ParticipationSchema);
+const Participation = mongoose.model("Participation", participationSchema);
+
+module.exports = Participation;
