@@ -17,7 +17,7 @@ const localStrategy2 = new LocalStartegy(
       if (user.isAccepted == "Pending")
         return done({ message: "Account is waiting for approval" });
 
-      return done(null, Organization);
+      return done(null, user);
     } catch (error) {
       done(error);
     }
