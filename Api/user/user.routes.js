@@ -4,7 +4,7 @@ const {
   register,
   signin,
   getAllUsers,
-
+  // getMyProfile,
   deleteUser,
   updateUser,
 } = require("./user.controllers");
@@ -36,9 +36,9 @@ userrouter.delete(
   deleteUser
 );
 
-userrouter.get(
-  "/user/userprofile",
-  passport.authenticate("jwt", { session: false }),
-  getMyProfile
-);
+// userrouter.get(
+//   "/user/userprofile",
+//   passport.authenticate("jwt", { session: false }),
+//   getMyProfile
+// );
 module.exports = userrouter;
