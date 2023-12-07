@@ -12,7 +12,7 @@ const hashedPassword = async (password) => {
 const generateToken = (user) => {
   const payload = {
     id: user._id,
-    username: user.username,
+    name: user.name,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.EXP_TIME,
@@ -51,8 +51,8 @@ exports.register = async (req, res, next) => {
 
 exports.signin = async (req, res, next) => {
   try {
-    console.log("hiiiii");
     const token = await generateToken(req.user);
+    console.log(" i am not the token");
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -122,7 +122,7 @@ exports.getProfile = async (req, res, next) => {
 
 exports.createEvent = async (req, res, next) => {
   try {
-    // req.body.user = req.user._id;
+    req.body.user = req.user._id;
     const { eventcategoryId } = req.params;
     const eventcategory = await EventCategory.findById(eventcategoryId);
     if (!eventcategory) {
