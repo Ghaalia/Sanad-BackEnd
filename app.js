@@ -17,8 +17,6 @@ const notificationRouter = require("./Api/notification/notification.routes");
 const participationRouter = require("./Api/participation/participation.routes");
 const deviceRouter = require("./Api/device/device.routes");
 
-const { localStrategy, jWTStrategy } = require("./middleware/passport");
-
 require("dotenv").config();
 
 app.use(cors());
