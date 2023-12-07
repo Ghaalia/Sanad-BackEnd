@@ -3,13 +3,13 @@ const Event = require("../../models/Event");
 const {
   getAllEvents,
   deleteEvent,
-  getOrgEvent,
+  // getOrgEvent,
 } = require("./event.controllers");
 const passport = require("passport");
 
 const eventrouter = express.Router();
 
-eventrouter.get("/allevents", getAllEvents);
+eventrouter.get("/event", getAllEvents);
 
 eventrouter.delete(
   "/event/:eventId",
@@ -17,9 +17,9 @@ eventrouter.delete(
   deleteEvent
 );
 
-// router.get(
+// eventrouter.get(
 //   "/org/myevents",
-//   //  passport.authenticate("jwt", { session: false }),
+//   passport.authenticate("jwt2", { session: false }),
 //   getOrgEvent
 // );
 
