@@ -17,7 +17,7 @@ OrganizationRouter.post("/org/register", upload.single("logo"), register);
 
 OrganizationRouter.post(
   "/org/signin",
-  // passport.authenticate("local2", { session: false }),
+  passport.authenticate("local2", { session: false }),
   signin
 ); // Login
 
