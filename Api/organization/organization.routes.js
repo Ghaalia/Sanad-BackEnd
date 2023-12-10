@@ -10,21 +10,21 @@ const {
   createEvent,
   OrgApproveById,
   OrgRejectById,
+  getAcceptedOrganizations,
+  getRejectedOrganizations,
+  getPendingOrganizations,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 
-OrganizationRouter.post("/org/register", upload.single("logo"), register);
+OrganizationRouter.post("/org/register", upload.array("files"), register);
 
 OrganizationRouter.post(
   "/org/signin",
-
   passport.authenticate("local2", { session: false }),
-
   signin
 ); // Login
 
 OrganizationRouter.get("/org/allOrganizations", getAllOrganizations);
-// OrganizationRouter.get("/org/:orgId", getOrganizationsById);
 
 OrganizationRouter.put(
   "/org/update-my-profile",
