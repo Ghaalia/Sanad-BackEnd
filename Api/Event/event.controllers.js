@@ -4,13 +4,14 @@ require("dotenv").config;
 
 exports.getAllEvents = async (req, res, next) => {
   try {
-    const events = await Event.find()
-      .populate({
-        path: "event_category",
-        select: "category_Name",
-      })
-      .populate("organization");
-    return res.status(201).json(events);
+    // const events = await Event.find().populate({
+    //   path: "event_category",
+    //   // select: "category_name",
+    // });
+    // // .populate("organization");
+    const events = await Event.find().populate("organization");
+    // .populate("organization");
+    return res.json(events);
   } catch (err) {
     next(err);
   }
@@ -49,16 +50,6 @@ exports.deleteEvent = async (req, res, next) => {
     //i have to delete the event form categoryevents .events array
   } catch (error) {
     console.log("hi");
-    next(error);
-  }
-};
-
-exports.getOrgEvent = async (req, res, next) => {
-  try {
-    const event = await Event.find({ organization: req.organization._id });
-    if (!event) return res.status(404).json("Event not found");
-    res.status(200).json(event);
-  } catch (error) {
     next(error);
   }
 };

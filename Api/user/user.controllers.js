@@ -14,9 +14,8 @@ const generateToken = (user) => {
     id: user._id,
     email: user.email,
   };
-  console.log("payload", payload);
   return jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: EXP_TIME,
+    expiresIn: "24hr",
   });
 };
 
@@ -83,3 +82,13 @@ exports.deleteUser = async (req, res, next) => {
 };
 
 //// GETPROFILE
+
+exports.getMyProfile = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (!user) return res.status(404).json("User not found");
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+};

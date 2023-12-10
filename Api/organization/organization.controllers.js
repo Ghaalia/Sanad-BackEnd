@@ -12,7 +12,7 @@ const hashedPassword = async (password) => {
 const generateToken = (user) => {
   const payload = {
     id: user._id,
-    username: user.username,
+    name: user.name,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.EXP_TIME,
@@ -52,8 +52,8 @@ exports.register = async (req, res, next) => {
 
 exports.signin = async (req, res, next) => {
   try {
-    console.log("hiiiii");
     const token = await generateToken(req.user);
+    console.log(" i am not the token");
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -114,42 +114,71 @@ exports.updateProfile = async (req, res, next) => {
 
 exports.getProfile = async (req, res, next) => {
   try {
-    const organization = await Organization.findById(req.user._id);
-    res.status(200).json(organization);
+    const foundOrganization = await Organization.findById(req.user._id);
+    res.status(200).json(foundOrganization);
   } catch (error) {
     next(error);
   }
 };
 
 exports.createEvent = async (req, res, next) => {
+  const { body: data, user, file, params } = req;
   try {
-    // req.body.user = req.user._id;
-    const { eventcategoryId } = req.params;
-    const eventcategory = await EventCategory.findById(eventcategoryId);
-    if (!eventcategory) {
+    const { eventcategoryId } = params;
+    data.event_category = eventcategoryId;
+    if (!data.event_category) {
+      // const error = new Error();
+      // error.status = 400;
+      // error.message = "Category ID not send."
+      // return next(error)
+      return res.status(400).json({ message: "Category ID not available." });
+    }
+    const foundEventCategory = await EventCategory.findById(eventcategoryId);
+    if (!foundEventCategory) {
+      // const error = new Error();
+      // error.status = 404;
+      // error.message = "Category not found."
+      // return next(error)
       return res.status(404).json("The category isn't found");
     }
-    if (req.file) {
-      req.body.event_image = req.file.path;
+    if (file) {
+      data.event_image = file.path;
     }
-
-    req.body.event_category = eventcategoryId;
-    if (!req.body.event_category) {
-      return res.status(400).json({ message: "Category ID is undefined" });
-    }
-
-    const event = await Event?.create(req.body);
-    eventcategory?.events?.push(event._id);
-    await eventcategory?.save();
-
-    await req.organization?.updateOne({ $push: { events: event } });
-
-    await event.save();
+    data.user = user._id;
+    const newEvent = await Event.create(data);
+    foundEventCategory?.events?.push(newEvent._id);
+    await foundEventCategory.save();
+    await user.updateOne({ $push: { events: newEvent } });
+    await newEvent?.updateOne({ organization: user._id });
     res
       .status(201)
       .json(
-        `The event: (${event.event_title}) has been added successfully to the categor: (${eventcategory.category_name})`
+        `The event: (${newEvent.event_title}) has been added successfully to the categor: (${foundEventCategory.category_name})`
       );
+    //
+    //here i have to update the org . events array
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.getOrgEvent = async (req, res, next) => {
+  // try {
+  //   const foundOrganizationE = await Organization.findById(req.user._id);
+
+  //   const event = await Event.findById({Event.organization: foundOrganizationE._id});
+
+  //   if (!event) return res.status(404).json("Event not found");
+  //   res.status(200).json(event);
+  // } catch (error) {
+  //   next(error);
+  // }
+
+  try {
+    console.log(req.user._id);
+    const event = await Event.find({ organization: req.user._id });
+    if (!event) return res.status(404).json("events not found");
+    res.status(200).json(event);
   } catch (error) {
     next(error);
   }
