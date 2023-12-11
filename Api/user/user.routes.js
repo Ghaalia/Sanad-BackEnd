@@ -36,9 +36,9 @@ userrouter.delete(
   deleteUser
 );
 
-// userrouter.get(
-//   "/user/userprofile",
-//   passport.authenticate("jwt", { session: false }),
-//   getMyProfile
-// );
+userrouter.get(
+  "/user/userprofile",
+  passport.authenticate("jwt", { session: false }),
+  getMyProfile
+);
 module.exports = userrouter;

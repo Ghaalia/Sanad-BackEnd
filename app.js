@@ -22,6 +22,7 @@ require("dotenv").config();
 app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
+app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(passport.initialize());
 passport.use("local", localStrategy);
 passport.use("jwt", jWTStrategy);
@@ -36,8 +37,8 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
-//app.use("/api", notificationRouter);
-//app.use("/api", deviceRouter);
+// app.use("/api", notificationRouter);
+// app.use("/api", deviceRouter);
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
 
