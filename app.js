@@ -6,20 +6,22 @@ const morgan = require("morgan");
 const cors = require("cors");
 const { NotFound } = require("./middleware/NotFound");
 const { ErrorHandler } = require("./middleware/ErrorHandler");
+const { localStrategy, jWTStrategy } = require("./middleware/passport");
+const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
 const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
-const { localStrategy, jWTStrategy } = require("./middleware/passport");
-const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
-const notificationRouter = require("./Api/notification/notification.routes");
 const participationRouter = require("./Api/participation/participation.routes");
-const deviceRouter = require("./Api/device/device.routes");
+// const notificationRouter = require("./Api/notification/notification.routes");
+// const deviceRouter = require("./Api/device/device.routes");
+const pdfRouter = require("./Api/pdf/pdf.routes");
 
 require("dotenv").config();
 
 app.use(cors());
+app.use("/media", express.static("media")); //i added this line to give access for /media folder, to the frontend
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(passport.initialize());
@@ -36,10 +38,11 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
-app.use("/api", notificationRouter);
-app.use("/api", deviceRouter);
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
+// app.use("/api", notificationRouter);
+// app.use("/api", deviceRouter);
+app.use("/api", pdfRouter);
 
 // Not Found Path
 app.use(NotFound);
