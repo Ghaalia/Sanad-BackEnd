@@ -48,6 +48,7 @@ OrganizationRouter.post(
 
 OrganizationRouter.put(`/org/approve`, OrgApproveById);
 OrganizationRouter.put(`/org/reject`, OrgRejectById);
+
 OrganizationRouter.get(
   `/org/myevents`,
   passport.authenticate("jwt2", { session: false }),

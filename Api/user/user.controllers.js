@@ -92,3 +92,27 @@ exports.getMyProfile = async (req, res, next) => {
     next(error);
   }
 };
+
+exports.userBlockById = async (req, res, next) => {
+  try {
+    const userId = await User.findById(req.body);
+    console.log(userId);
+    if (!userId) return res.status(404).json("User not found");
+    await userId.updateOne({ isBlocked: "true" });
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.userUnBlockedById = async (req, res, next) => {
+  try {
+    const userId = await User.findById(req.body);
+    console.log(userId);
+    if (!userId) return res.status(404).json("User not found");
+    await userId.updateOne({ isBlocked: "false" });
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};

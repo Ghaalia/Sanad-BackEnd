@@ -7,6 +7,8 @@ const {
   deleteUser,
   updateUser,
   getMyProfile,
+  userBlockById,
+  userUnBlockedById,
 } = require("./user.controllers");
 const passport = require("passport");
 const upload = require("../../middleware/multer");
@@ -41,4 +43,8 @@ userrouter.get(
   passport.authenticate("jwt", { session: false }),
   getMyProfile
 );
+
+userrouter.put(`/user/Blocked`, userBlockById);
+userrouter.put(`/user/UnBlocked`, userUnBlockedById);
+
 module.exports = userrouter;
