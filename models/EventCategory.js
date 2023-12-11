@@ -10,4 +10,4 @@ const EventCategorySchema = new mongoose.Schema({
   ],
 });
 
-module.exports = mongoose.model("eventCategory", EventCategorySchema);
+module.exports = mongoose.model("EventCategory", EventCategorySchema);

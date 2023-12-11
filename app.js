@@ -36,8 +36,8 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
-app.use("/api", notificationRouter);
-app.use("/api", deviceRouter);
+//app.use("/api", notificationRouter);
+//app.use("/api", deviceRouter);
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
 
