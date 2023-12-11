@@ -39,11 +39,8 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
-<<<<<<< HEAD
-=======
 // app.use("/api", notificationRouter);
 // app.use("/api", deviceRouter);
->>>>>>> 1ecb17dbb4a7b87ba130695c933f32ade19fddd0
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
 // app.use("/api", notificationRouter);
