@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const participationSchema = new mongoose.Schema({
-  status: String,
+  status: { type: String, default: "Pending" },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -10,7 +10,8 @@ const participationSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Event",
   },
-  attended: Boolean,
+  attended: { type: Boolean, default: false },
+
   rejection_msg: String,
 });
 

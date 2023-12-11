@@ -52,7 +52,6 @@ exports.register = async (req, res, next) => {
 exports.signin = async (req, res, next) => {
   try {
     const token = await generateToken(req.user);
-    console.log(" i am not the token");
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -182,3 +181,9 @@ exports.getOrgEvent = async (req, res, next) => {
     next(error);
   }
 };
+
+//handle particepant singing up en specific event
+
+//eventid
+
+//handle particepant attendence once the
