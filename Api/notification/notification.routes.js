@@ -5,11 +5,7 @@
 // } = require("./notification.controllers");
 // const Device = require("../../models/Device");
 // const passport = require("passport");
-<<<<<<< HEAD
-// const notificationrouter = express.Router();
-=======
 // const router = express.Router();
->>>>>>> 1ecb17dbb4a7b87ba130695c933f32ade19fddd0
 
 // // Create a new notification
 // router.post("/notifications", createNotification);
@@ -33,8 +29,4 @@
 //   }
 // );
 
-<<<<<<< HEAD
-// module.exports = notificationrouter;
-=======
 // module.exports = router;
->>>>>>> 1ecb17dbb4a7b87ba130695c933f32ade19fddd0
