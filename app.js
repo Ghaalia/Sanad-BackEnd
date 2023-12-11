@@ -24,6 +24,7 @@ app.use(cors());
 app.use("/media", express.static("media")); //i added this line to give access for /media folder, to the frontend
 app.use(express.json());
 app.use(morgan("dev"));
+app.use("/media", express.static(path.join(__dirname, "media")));
 app.use(passport.initialize());
 passport.use("local", localStrategy);
 passport.use("jwt", jWTStrategy);
@@ -38,6 +39,11 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
+<<<<<<< HEAD
+=======
+// app.use("/api", notificationRouter);
+// app.use("/api", deviceRouter);
+>>>>>>> 1ecb17dbb4a7b87ba130695c933f32ade19fddd0
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
 // app.use("/api", notificationRouter);

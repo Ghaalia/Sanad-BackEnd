@@ -23,16 +23,17 @@ const generateToken = (user) => {
 
 exports.register = async (req, res, next) => {
   try {
-    console.log("1");
     if (!req.body.password) {
       return res.status(400).json({ message: "Password is required" });
     }
 
     req.body.password = await hashedPassword(req.body.password);
 
-    if (req.file) {
-      req.body.license = req.file.path;
-      req.body.logo = req.file.path;
+    if (req.files) {
+      console.log(req.files);
+      req.body.license = req.files[0].path;
+      req.body.logo = req.files[1].path;
+      // req.body.logo = req.file.path;
     }
 
     const organizationUser = await Organization.create(req.body);
@@ -52,7 +53,6 @@ exports.register = async (req, res, next) => {
 exports.signin = async (req, res, next) => {
   try {
     const token = await generateToken(req.user);
-    console.log(" i am not the token");
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
@@ -182,3 +182,9 @@ exports.getOrgEvent = async (req, res, next) => {
     next(error);
   }
 };
+
+//handle particepant singing up en specific event
+
+//eventid
+
+//handle particepant attendence once the

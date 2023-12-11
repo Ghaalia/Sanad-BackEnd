@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema({
       ref: "Participation",
     },
   ],
-  skills: { type: String },
+  skills: { type: String, default: null },
   donation_album: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema({
   volunteer_record: { type: Number },
   generated_link: { type: Number },
   volunteer_points: { type: Number },
+  isBlocked: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", UserSchema);
