@@ -30,6 +30,7 @@ const UserSchema = new mongoose.Schema({
   volunteer_record: { type: Number },
   generated_link: { type: Number },
   volunteer_points: { type: Number },
+  isBlocked: { type: Boolean, default: false },
 });
 
 module.exports = mongoose.model("User", UserSchema);
