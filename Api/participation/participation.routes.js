@@ -1,20 +1,26 @@
 const express = require("express");
-const router = express.Router();
-const participationController = require("../participation/participation.controllers");
+
+const {
+  getParticipationsByEvent,
+  getParticipationsByUser,
+  userApproveById,
+  userRejectById,
+} = require("./participation.controllers");
+const participationrouter = express.Router();
 
 // Create a new participation
-router.post("/participation", participationController.createParticipation);
+// participationrouter.post("/participation", createParticipation);
 
 // Get all participations for a specific event
-router.get(
+participationrouter.get(
   "/participation/event/:eventId",
-  participationController.getParticipationsByEvent
+  getParticipationsByEvent
 );
 
 // Get all participations for a specific user
-router.get(
-  "/participation/user/:userId",
-  participationController.getParticipationsByUser
-);
+participationrouter.get("/participation/user/:userId", getParticipationsByUser);
 
-module.exports = router;
+participationrouter.put(`/participation/user/approve`, userApproveById);
+participationrouter.put(`/participation/user/reject`, userRejectById);
+
+module.exports = participationrouter;

@@ -146,6 +146,7 @@ exports.createEvent = async (req, res, next) => {
     const newEvent = await Event.create(data);
     foundEventCategory?.events?.push(newEvent._id);
     await foundEventCategory.save();
+
     await user.updateOne({ $push: { events: newEvent } });
     await newEvent?.updateOne({ organization: user._id });
     res
@@ -161,17 +162,6 @@ exports.createEvent = async (req, res, next) => {
 };
 
 exports.getOrgEvent = async (req, res, next) => {
-  // try {
-  //   const foundOrganizationE = await Organization.findById(req.user._id);
-
-  //   const event = await Event.findById({Event.organization: foundOrganizationE._id});
-
-  //   if (!event) return res.status(404).json("Event not found");
-  //   res.status(200).json(event);
-  // } catch (error) {
-  //   next(error);
-  // }
-
   try {
     console.log(req.user._id);
     const event = await Event.find({ organization: req.user._id });
