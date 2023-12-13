@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
       ref: "Participation",
     },
   ],
-  skills: { type: String, default: null },
+  skills: { type: String },
   donation_album: [
     {
       type: mongoose.Schema.Types.ObjectId,
