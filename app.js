@@ -10,13 +10,14 @@ const { localStrategy, jWTStrategy } = require("./middleware/passport");
 const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
-const OrganizationRouter = require("./api/organization/organization.routes");
+const OrganizationRouter = require("./Api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
 const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
 const participationRouter = require("./Api/participation/participation.routes");
 // const notificationRouter = require("./Api/notification/notification.routes");
 // const deviceRouter = require("./Api/device/device.routes");
 const pdfRouter = require("./Api/pdf/pdf.routes");
+const uploadRoutes = require("./Api/donation/upload.routes");
 
 require("dotenv").config();
 
@@ -43,9 +44,8 @@ app.use("/api", OrganizationRouter);
 // app.use("/api", deviceRouter);
 app.use("/api", userrouter);
 app.use("/api", participationRouter);
-// app.use("/api", notificationRouter);
-// app.use("/api", deviceRouter);
 app.use("/api", pdfRouter);
+app.use(uploadRoutes);
 
 // Not Found Path
 app.use(NotFound);
