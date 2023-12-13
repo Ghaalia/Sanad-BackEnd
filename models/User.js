@@ -9,9 +9,7 @@ const UserSchema = new mongoose.Schema({
   civil_id: { type: String },
   dob: { type: String },
   phone_number: { type: Number, required: true },
-  image: {
-    type: String,
-  },
+  image: { type: String },
   volunteer_events: [
     {
       type: mongoose.Schema.Types.ObjectId,
