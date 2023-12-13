@@ -9,11 +9,7 @@ const UserSchema = new mongoose.Schema({
   civil_id: { type: String },
   dob: { type: String },
   phone_number: { type: Number, required: true },
-  image: {
-    type: String,
-    default:
-      "https://static.vecteezy.com/system/resources/previews/005/129/844/non_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg",
-  },
+  image: { type: String },
   volunteer_events: [
     {
       type: mongoose.Schema.Types.ObjectId,
