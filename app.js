@@ -13,18 +13,15 @@ const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
 const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
-<<<<<<< HEAD
+
 const participationRouter = require("./Api/participation/participation.routes");
 // const notificationRouter = require("./Api/notification/notification.routes");
 // const deviceRouter = require("./Api/device/device.routes");
 const pdfRouter = require("./Api/pdf/pdf.routes");
-=======
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
 const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
-const notificationRouter = require("./Api/notification/notification.routes");
+
 const participationrouter = require("./Api/participation/participation.routes");
-const deviceRouter = require("./Api/device/device.routes");
->>>>>>> bebe
 
 require("dotenv").config();
 
@@ -50,14 +47,10 @@ app.use("/api", OrganizationRouter);
 // app.use("/api", notificationRouter);
 // app.use("/api", deviceRouter);
 app.use("/api", userrouter);
-<<<<<<< HEAD
-app.use("/api", participationRouter);
 // app.use("/api", notificationRouter);
 // app.use("/api", deviceRouter);
 app.use("/api", pdfRouter);
-=======
 app.use("/api", participationrouter);
->>>>>>> bebe
 
 // Not Found Path
 app.use(NotFound);
