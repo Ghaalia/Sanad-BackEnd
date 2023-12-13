@@ -10,7 +10,7 @@ const EventSchema = new mongoose.Schema({
   event_category: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Event_category",
+      ref: "EventCategory",
     },
   ],
   organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
