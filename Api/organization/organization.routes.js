@@ -40,8 +40,14 @@ OrganizationRouter.get(
   getProfile
 );
 
+// OrganizationRouter.post(
+//   "/org/event/:eventcategoryId",
+//   passport.authenticate("jwt2", { session: false }),
+//   createEvent
+// );
+
 OrganizationRouter.post(
-  "/org/event/:eventcategoryId",
+  "/org/create-event",
   passport.authenticate("jwt2", { session: false }),
   createEvent
 );

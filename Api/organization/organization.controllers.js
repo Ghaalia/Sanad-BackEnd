@@ -121,29 +121,15 @@ exports.getProfile = async (req, res, next) => {
 };
 
 exports.createEvent = async (req, res, next) => {
-  const { body: data, user, file, params } = req;
   try {
-    const { eventcategoryId } = params;
-    data.event_category = eventcategoryId;
-    if (!data.event_category) {
-      // const error = new Error();
-      // error.status = 400;
-      // error.message = "Category ID not send."
-      // return next(error)
-      return res.status(400).json({ message: "Category ID not available." });
-    }
-    const foundEventCategory = await EventCategory.findById(eventcategoryId);
-    if (!foundEventCategory) {
-      // const error = new Error();
-      // error.status = 404;
-      // error.message = "Category not found."
-      // return next(error)
-      return res.status(404).json("The category isn't found");
-    }
+    const { body: data, user, file } = req;
+
+    // Create a new event
     if (file) {
-      data.event_image = file.path;
+      data.event_image = file.path; // Assuming you're storing the path of an uploaded file
     }
-    data.user = user._id;
+    data.user = user._id; // Set the user ID (assuming user is logged in and their ID is available)
+
     const newEvent = await Event.create(data);
     foundEventCategory?.events?.push(newEvent._id);
     await foundEventCategory.save();
@@ -157,10 +143,71 @@ exports.createEvent = async (req, res, next) => {
       );
     //
     //here i have to update the org . events array
+
+    // Assuming event_category is now an array of IDs in the request body
+    const categoryIds = req.body.event_category;
+    for (const categoryId of categoryIds) {
+      const category = await EventCategory.findById(categoryId);
+      if (category) {
+        category.events.push(newEvent._id);
+        await category.save();
+      }
+    }
+
+    // Update the user's events (assuming there's a relationship between users and events)
+    await user.updateOne({ $push: { events: newEvent._id } });
+
+    // Send response
+    res.status(201).json({
+      message: `The event '${newEvent.event_title}' has been added successfully`,
+      event: newEvent,
+    });
   } catch (error) {
-    return next(error);
+    // Error handling
+    next(error);
   }
 };
+
+// exports.createEvent = async (req, res, next) => {
+//   const { body: data, user, file, params } = req;
+//   try {
+//     const { eventcategoryId } = params;
+//     data.event_category = eventcategoryId;
+//     if (!data.event_category) {
+//       // const error = new Error();
+//       // error.status = 400;
+//       // error.message = "Category ID not send."
+//       // return next(error)
+//       return res.status(400).json({ message: "Category ID not available." });
+//     }
+//     const foundEventCategory = await EventCategory.findById(eventcategoryId);
+//     if (!foundEventCategory) {
+//       // const error = new Error();
+//       // error.status = 404;
+//       // error.message = "Category not found."
+//       // return next(error)
+//       return res.status(404).json("The category isn't found");
+//     }
+//     if (file) {
+//       data.event_image = file.path;
+//     }
+//     data.user = user._id;
+//     const newEvent = await Event.create(data);
+//     foundEventCategory?.events?.push(newEvent._id);
+//     await foundEventCategory.save();
+//     await user.updateOne({ $push: { events: newEvent } });
+//     await newEvent?.updateOne({ organization: user._id });
+//     res
+//       .status(201)
+//       .json(
+//         `The event: (${newEvent.event_title}) has been added successfully to the categor: (${foundEventCategory.category_name})`
+//       );
+//     //
+//     //here i have to update the org . events array
+//   } catch (error) {
+//     return next(error);
+//   }
+// };
 
 exports.getOrgEvent = async (req, res, next) => {
   try {
