@@ -6,21 +6,16 @@ const morgan = require("morgan");
 const cors = require("cors");
 const { NotFound } = require("./middleware/NotFound");
 const { ErrorHandler } = require("./middleware/ErrorHandler");
-const { localStrategy, jWTStrategy } = require("./middleware/passport");
-const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 const passport = require("passport");
 const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./Api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
 const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
-
-const participationRouter = require("./Api/participation/participation.routes");
 // const notificationRouter = require("./Api/notification/notification.routes");
 // const deviceRouter = require("./Api/device/device.routes");
 const pdfRouter = require("./Api/pdf/pdf.routes");
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
 const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
-
 const participationrouter = require("./Api/participation/participation.routes");
 const uploadRoutes = require("./Api/donation/upload.routes");
 
