@@ -13,6 +13,7 @@ const generateToken = (user) => {
   const payload = {
     id: user._id,
     name: user.name,
+    isAdmin: user.isAdmin,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.EXP_TIME,
