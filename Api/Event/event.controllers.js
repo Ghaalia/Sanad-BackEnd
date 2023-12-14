@@ -1,5 +1,6 @@
 const Event = require("../../models/Event");
 const EventCategory = require("../../models/EventCategory");
+
 require("dotenv").config;
 
 exports.getAllEvents = async (req, res, next) => {

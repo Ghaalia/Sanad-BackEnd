@@ -18,8 +18,6 @@ const participationRouter = require("./Api/participation/participation.routes");
 // const notificationRouter = require("./Api/notification/notification.routes");
 // const deviceRouter = require("./Api/device/device.routes");
 const pdfRouter = require("./Api/pdf/pdf.routes");
-const { localStrategy, jWTStrategy } = require("./middleware/passport");
-const { localStrategy2, jWTStrategy2 } = require("./middleware/OrgPassport");
 
 const participationrouter = require("./Api/participation/participation.routes");
 

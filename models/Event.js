@@ -10,7 +10,7 @@ const EventSchema = new mongoose.Schema({
   event_category: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Event_category",
+      ref: "EventCategory",
     },
   ],
   organization: { type: mongoose.Schema.Types.ObjectId, ref: "Organization" },
@@ -20,9 +20,9 @@ const EventSchema = new mongoose.Schema({
       ref: "participation",
     },
   ],
-  event_date: { type: Date, required: true },
-  event_start_time: { type: Date, required: true },
-  event_end_time: { type: Date, required: true },
+  event_date: { type: String, required: true },
+  event_start_time: { type: String, required: true },
+  event_end_time: { type: String, required: true },
   no_of_volunteer: { type: Number, required: true },
   description: { type: String, required: true },
   registration_Condition: { type: String, required: true },
