@@ -9,7 +9,7 @@ const OrganizationSchema = new mongoose.Schema({
   license: String,
   logo: String,
   isAccepted: { type: String, default: "Pending" }, // Pending, Accepted or Rejected
-  isAdmin: Boolean,
+  isAdmin: { type: Boolean, default: false },
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   //   location_coordinates: { type: "Point", coordinates: [ 40, 5 ] },
   location_coordinates: String,
