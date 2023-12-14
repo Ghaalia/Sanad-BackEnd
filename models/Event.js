@@ -21,15 +21,15 @@ const EventSchema = new mongoose.Schema({
     },
   ],
   event_date: {
-    type: Date,
+    type: String,
     //  required: true
   },
   event_start_time: {
-    type: Date,
+    type: String,
     // required: true
   },
   event_end_time: {
-    type: Date,
+    type: String,
     // required: true
   },
   no_of_volunteer: {
