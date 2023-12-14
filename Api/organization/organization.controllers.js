@@ -93,6 +93,18 @@ exports.OrgRejectById = async (req, res, next) => {
   }
 };
 
+exports.handelParReqsforAnEvent = async (req, res, next) => {
+  try {
+    const eventId = req.params.eventId;
+    const participations = await Participation.findOne({
+      event: eventId,
+      user: req.user._id,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // exports.getOrganizationsById = async (req, res, next) => {
 //   try {
 //     const organization = await Organization.findById(req._id);
