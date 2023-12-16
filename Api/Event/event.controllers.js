@@ -5,7 +5,10 @@ require("dotenv").config;
 exports.getAllEvents = async (req, res, next) => {
   try {
     const events = await Event.find().populate("organization");
-
+    // .populate({
+    //   path: "eventCategory",
+    //   select: "-_id category_name",
+    // });
     // .populate({
     //   path: "organization",
     //   select: "-_id name",

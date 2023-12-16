@@ -48,6 +48,7 @@ OrganizationRouter.get(
 
 OrganizationRouter.post(
   "/org/create-event",
+  upload.single("event_image"),
   passport.authenticate("jwt2", { session: false }),
   createEvent
 );

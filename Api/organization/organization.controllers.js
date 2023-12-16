@@ -126,10 +126,14 @@ exports.createEvent = async (req, res, next) => {
 
     // Create a new event
     if (file) {
-      data.event_image = file.path; // Assuming you're storing the path of an uploaded file
+      data.event_image = file.path;
     }
     data.user = user._id; // Set the user ID (assuming user is logged in and their ID is available)
-
+    console.log(data);
+    console.log(Array.isArray(data.event_category));
+    if (!Array.isArray(data.event_category)) {
+      data.event_category = [data.event_category];
+    }
     const newEvent = await Event.create(data);
 
     // Assuming event_category is now an array of IDs in the request body
