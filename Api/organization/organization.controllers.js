@@ -133,6 +133,57 @@ exports.getProfile = async (req, res, next) => {
   }
 };
 
+// exports.createEvent = async (req, res, next) => {
+//   try {
+//     const { body: data, user, file } = req;
+
+//     // Create a new event
+//     if (file) {
+//       data.event_image = file.path;
+//     }
+//     data.user = user._id; // Set the user ID (assuming user is logged in and their ID is available)
+//     console.log(data);
+//     console.log(Array.isArray(data.event_category));
+//     if (!Array.isArray(data.event_category)) {
+//       data.event_category = [data.event_category];
+//     }
+//     const newEvent = await Event.create(data);
+//     foundEventCategory?.events?.push(newEvent._id);
+//     await foundEventCategory.save();
+
+//     await user.updateOne({ $push: { events: newEvent } });
+//     await newEvent?.updateOne({ organization: user._id });
+//     res
+//       .status(201)
+//       .json(
+//         `The event: (${newEvent.event_title}) has been added successfully to the categor: (${foundEventCategory.category_name})`
+//       );
+//     //
+//     //here i have to update the org . events array
+
+//     // Assuming event_category is now an array of IDs in the request body
+//     const categoryIds = req.body.event_category;
+//     for (const categoryId of categoryIds) {
+//       const category = await EventCategory.findById(categoryId);
+//       if (category) {
+//         category.events.push(newEvent._id);
+//         await category.save();
+//       }
+//     }
+
+//     // Update the user's events (assuming there's a relationship between users and events)
+//     await user.updateOne({ $push: { events: newEvent._id } });
+
+//     // Send response
+//     res.status(201).json({
+//       message: `The event '${newEvent.event_title}' has been added successfully`,
+//       event: newEvent,
+//     });
+//   } catch (error) {
+//     // Error handling
+//     next(error);
+//   }
+// };
 exports.createEvent = async (req, res, next) => {
   try {
     const { body: data, user, file } = req;
@@ -148,18 +199,6 @@ exports.createEvent = async (req, res, next) => {
       data.event_category = [data.event_category];
     }
     const newEvent = await Event.create(data);
-    foundEventCategory?.events?.push(newEvent._id);
-    await foundEventCategory.save();
-
-    await user.updateOne({ $push: { events: newEvent } });
-    await newEvent?.updateOne({ organization: user._id });
-    res
-      .status(201)
-      .json(
-        `The event: (${newEvent.event_title}) has been added successfully to the categor: (${foundEventCategory.category_name})`
-      );
-    //
-    //here i have to update the org . events array
 
     // Assuming event_category is now an array of IDs in the request body
     const categoryIds = req.body.event_category;
@@ -184,7 +223,6 @@ exports.createEvent = async (req, res, next) => {
     next(error);
   }
 };
-
 // exports.createEvent = async (req, res, next) => {
 //   const { body: data, user, file, params } = req;
 //   try {
