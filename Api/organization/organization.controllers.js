@@ -13,6 +13,7 @@ const generateToken = (user) => {
   const payload = {
     id: user._id,
     name: user.name,
+    isAdmin: user.isAdmin,
   };
   const token = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: process.env.EXP_TIME,
@@ -87,6 +88,18 @@ exports.OrgRejectById = async (req, res, next) => {
     if (!orgId) return res.status(404).json("Organization not found");
     await orgId.updateOne({ isAccepted: "Rejected" });
     res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.handelParReqsforAnEvent = async (req, res, next) => {
+  try {
+    const eventId = req.params.eventId;
+    const participations = await Participation.findOne({
+      event: eventId,
+      user: req.user._id,
+    });
   } catch (error) {
     next(error);
   }

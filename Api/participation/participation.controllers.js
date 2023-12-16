@@ -53,36 +53,6 @@ exports.getParticipationsByUser = async (req, res, next) => {
   }
 };
 
-// register participant for a sipecific event by event id
-
-// exports.userApproveById = async (req, res, next) => {
-//   try {
-//     const userId = await Participation.findById(req.body);
-//     console.log(userId);
-//     const theparticipation = await Participation.find({ user: userId });
-
-//     if (!theparticipation)
-//       return res.status(404).json("participation  not found");
-//     await Participation.findByIdAndUpdate(req.params.userId);
-//     //await userId.updateOne({ status: "Accepted" });
-//     res.status(204).end();
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-// exports.userRejectById = async (req, res, next) => {
-//   try {
-//     const userId = await Participation.findById(req.body);
-//     console.log(userId);
-//     if (!userId) return res.status(404).json("user not found");
-//     await userId.updateOne({ status: "Rejected" });
-//     res.status(204).end();
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
 exports.userApproveById = async (req, res, next) => {
   try {
     const eventID = req.params.eventID; // Assuming the ID is in the URL parameters
