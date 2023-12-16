@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { image } = require("pdfkit");
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
@@ -10,6 +11,7 @@ const UserSchema = new mongoose.Schema({
   dob: { type: String },
   phone_number: { type: Number, required: true },
   image: { type: String },
+  // default: require("../media/user/profileimg.png")
   volunteer_events: [
     {
       type: mongoose.Schema.Types.ObjectId,
