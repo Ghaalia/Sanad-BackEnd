@@ -5,7 +5,9 @@ require("dotenv").config;
 
 exports.getAllEvents = async (req, res, next) => {
   try {
-    const events = await Event.find().populate("organization");
+    const events = await Event.find()
+      .populate("organization")
+      .populate("event_category", "category_name");
     // .populate({
     //   path: "eventCategory",
     //   select: "-_id category_name",

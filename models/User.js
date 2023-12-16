@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const { image } = require("pdfkit");
+// const { image } = require("pdfkit");
+// const defaultImage = require("../media/profileimage.jpg");
 
 const UserSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
