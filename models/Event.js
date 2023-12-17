@@ -20,16 +20,20 @@ const EventSchema = new mongoose.Schema({
       ref: "participation",
     },
   ],
-  event_date: {
-    type: Date,
+  event_start_date: {
+    type: String,
+    //  required: true
+  },
+  event_end_date: {
+    type: String,
     //  required: true
   },
   event_start_time: {
-    type: Date,
+    type: String,
     // required: true
   },
   event_end_time: {
-    type: Date,
+    type: String,
     // required: true
   },
   no_of_volunteer: {

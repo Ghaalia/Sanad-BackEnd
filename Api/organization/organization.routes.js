@@ -10,9 +10,7 @@ const {
   createEvent,
   OrgApproveById,
   OrgRejectById,
-  getAcceptedOrganizations,
-  getRejectedOrganizations,
-  getPendingOrganizations,
+  handelParReqsforAnEvent,
   getOrgEvent,
   getOrganizationsById,
 } = require("./organization.controllers");
@@ -49,6 +47,7 @@ OrganizationRouter.get(
 
 OrganizationRouter.post(
   "/org/create-event",
+  upload.single("event_image"),
   passport.authenticate("jwt2", { session: false }),
   createEvent
 );
@@ -66,6 +65,12 @@ OrganizationRouter.get(
   `/org/:OrgId`,
   passport.authenticate("jwt2", { session: false }),
   getOrganizationsById
+);
+
+OrganizationRouter.get(
+  `/org/eventParticipationReqHandler`,
+  passport.authenticate("jwt2", { session: false }),
+  handelParReqsforAnEvent
 );
 
 module.exports = OrganizationRouter;
