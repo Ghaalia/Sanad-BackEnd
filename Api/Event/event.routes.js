@@ -5,7 +5,6 @@ const {
   deleteEvent,
   updateEvent,
   getOneEvent,
-  // getOrgEvent,
 } = require("./event.controllers");
 const passport = require("passport");
 const upload = require("../../middleware/multer");

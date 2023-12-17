@@ -146,7 +146,7 @@ exports.requestParticipation = async (req, res, next) => {
     });
 
     await event.updateOne({
-      $push: { vvolunteer_list: participation },
+      $push: { volunteer_list: participation },
     });
 
     await req.user.updateOne({ $push: { volunteer_events: participation } });
