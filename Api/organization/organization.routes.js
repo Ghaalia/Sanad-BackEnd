@@ -14,6 +14,7 @@ const {
   getRejectedOrganizations,
   getPendingOrganizations,
   getOrgEvent,
+  getOrganizationsById,
 } = require("./organization.controllers");
 const upload = require("../../middleware/multer");
 const Organization = require("../../models/Organization");
@@ -59,6 +60,12 @@ OrganizationRouter.get(
   `/org/myevents`,
   passport.authenticate("jwt2", { session: false }),
   getOrgEvent
+);
+
+OrganizationRouter.get(
+  `/org/:OrgId`,
+  passport.authenticate("jwt2", { session: false }),
+  getOrganizationsById
 );
 
 module.exports = OrganizationRouter;

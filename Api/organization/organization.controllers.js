@@ -93,15 +93,19 @@ exports.OrgRejectById = async (req, res, next) => {
   }
 };
 
-// exports.getOrganizationsById = async (req, res, next) => {
-//   try {
-//     const organization = await Organization.findById(req._id);
-//     if (organization) return res.status(201).json(organization);
-//     return res.status(404).json("Organization not found");
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+exports.getOrganizationsById = async (req, res, next) => {
+  try {
+    req.body.user = req.user._id;
+    const { OrgId } = req.params;
+    const organization = await Organization.findById(OrgId);
+
+    if (organization) return res.status(200).json(organization);
+
+    return res.status(404).json({ error: "Organization not found" });
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.updateProfile = async (req, res, next) => {
   try {
