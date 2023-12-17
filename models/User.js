@@ -11,8 +11,13 @@ const UserSchema = new mongoose.Schema({
   civil_id: { type: String },
   dob: { type: String },
   phone_number: { type: Number, required: true },
-  image: { type: String },
-  // default: require("../media/user/profileimg.png")
+  image: { type: String }, // default: require("../media/user/profileimg.png")
+  // image: {
+  //   type: String,
+  //   default: "path/to//profileimg.png",
+  // },
+  // image: { type: String, default: "/media/user/profileimg.png" },
+
   volunteer_events: [
     {
       type: mongoose.Schema.Types.ObjectId,
