@@ -5,7 +5,9 @@ require("dotenv").config;
 
 exports.getAllEvents = async (req, res, next) => {
   try {
-    const events = await Event.find().populate("organization event_category");
+    const events = await Event.find().populate(
+      "organization event_category volunteer_list"
+    );
     // .populate({ path: "event_category", select: "category_name" });
 
     // .populate({
@@ -112,3 +114,22 @@ exports.getOneEvent = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.getParReqEvent = async (req, res, next) => {
+//   try {
+
+// const { eventId } = req.params;
+
+// const parReq = await Event.find();
+// const event = await Event.findById(parId);
+// if (!event) return next({ status: 404, message: "event not found!" });
+// const alreadyParticipated = await Participation.findOne({
+//   user: req.user._id,
+//   event: event._id,
+// });
+
+// return res.json(parReqs);
+// } catch (err) {
+//   next(err);
+// }
+// };
