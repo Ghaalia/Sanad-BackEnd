@@ -107,7 +107,9 @@ exports.getOneEvent = async (req, res, next) => {
 
     const event = await Event.findById(eventId)
       .populate("event_title")
-      .populate("organization");
+      .populate("organization")
+      .populate("event_category", "category_name")
+      .populate("volunteer_list", "Participation");
 
     if (!event) {
       return res.status(404).json("The event isn't found");
