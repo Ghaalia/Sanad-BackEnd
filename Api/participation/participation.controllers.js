@@ -67,6 +67,18 @@ exports.getParticipationsByEvent = async (req, res, next) => {
   }
 };
 
+exports.getParticipationsById = async (req, res, next) => {
+  try {
+    const parId = req.body.parId;
+    const participations = await Participation.findById(parId);
+    if (!participations)
+      return res.status(404).json(`Participations Not Found`);
+    res.status(200).json(participations);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.gettheUserid = async (req, res, next) => {
   try {
     const userId = req.params.userId;
@@ -141,16 +153,23 @@ exports.requestParticipation = async (req, res, next) => {
   try {
     const { eventId } = req.params;
     const event = await Event.findById(eventId);
-    if (!event) return next({ status: 404, message: "event not found!" });
+
+    if (!event) {
+      return next({ status: 404, message: "Event not found!" });
+    }
+
     const alreadyParticipated = await Participation.findOne({
       user: req.user._id,
       event: event._id,
     });
-    if (alreadyParticipated)
+
+    if (alreadyParticipated) {
       return next({
         status: 400,
-        message: "you can't participate twice in the same event",
+        message: "You can't participate twice in the same event",
       });
+    }
+
     const participation = await Participation.create({
       event: event,
       user: req.user._id,
@@ -160,10 +179,16 @@ exports.requestParticipation = async (req, res, next) => {
       $push: { volunteer_list: participation },
     });
 
-    await req.user.updateOne({ $push: { volunteer_events: participation } });
+    // Fetch the updated event
+    const updatedEvent = await Event.findById(eventId);
+
+    await req.user.updateOne({
+      $push: { volunteer_events: participation },
+    });
 
     return res.status(201).json({
       message: "Request sent!",
+      event: updatedEvent, // Include the updated event in the response
     });
   } catch (error) {
     next(error);
@@ -174,7 +199,7 @@ exports.getParticipationsbyId = async (req, res, next) => {
   try {
     const { eventId } = req.params;
     const parId = req.body.parId;
-    console.log(parId);
+    // console.log(parId);
 
     // Find the participation by ID and populate user and event fields
     const event = await Event.findById(eventId);

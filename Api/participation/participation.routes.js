@@ -7,6 +7,7 @@ const {
   userRejectById,
   requestParticipation,
   getParticipationsbyId,
+  getParticipationsById,
 } = require("./participation.controllers");
 const passport = require("passport");
 const participationrouter = express.Router();
@@ -41,6 +42,11 @@ participationrouter.post(
   "/participation/:eventId",
   passport.authenticate("jwt", { session: false }),
   requestParticipation
+);
+
+participationrouter.get(
+  `/current_event_details/:eventId`,
+  getParticipationsById
 );
 
 module.exports = participationrouter;

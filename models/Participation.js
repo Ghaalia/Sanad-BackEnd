@@ -15,6 +15,6 @@ const participationSchema = new mongoose.Schema({
   rejection_msg: String,
 });
 
-const Participation = mongoose.model("participation", participationSchema);
+const Participation = mongoose.model("Participation", participationSchema);
 
 module.exports = Participation;

@@ -102,17 +102,19 @@ exports.updateEvent = async (req, res, next) => {
 
 exports.getOneEvent = async (req, res, next) => {
   try {
-    req.body.user = req.user._id;
     const { eventId } = req.params;
 
-    const event = await Event.findById(eventId)
-      .populate("event_title")
-      .populate("organization")
-      .populate("event_category", "category_name")
-      .populate("volunteer_list", "Participation");
+    const event = await Event.findById(eventId).populate({
+      path: "volunteer_list",
+      populate: {
+        path: "user",
+        model: "User", // Assuming your User model is named "User"
+      },
+    });
+    // .populate("organization");
 
     if (!event) {
-      return res.status(404).json("The event isn't found");
+      return res.status(404).json("Event not found");
     }
     res.status(200).json(event);
   } catch (error) {
