@@ -17,7 +17,7 @@ const EventSchema = new mongoose.Schema({
   volunteer_list: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "participation",
+      ref: "Participation",
     },
   ],
   event_start_date: {
