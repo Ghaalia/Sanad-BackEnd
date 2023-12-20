@@ -213,6 +213,18 @@ exports.getParticipationsbyId = async (req, res, next) => {
   }
 };
 
+exports.parAttended = async (req, res, next) => {
+  try {
+    const particepant = await Participation.findById(req.body);
+    console.log(particepant);
+    if (!particepant) return res.status(404).json("particepant not found");
+    await particepant.updateOne({ attended: true });
+    res.status(204).json(particepant);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // req.body.user = req.user._id;
 // const parId = req.params.parId;
 

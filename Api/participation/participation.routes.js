@@ -8,6 +8,8 @@ const {
   requestParticipation,
   getParticipationsbyId,
   getParticipationsById,
+  parAttended,
+  AddparToUser,
 } = require("./participation.controllers");
 const passport = require("passport");
 const participationrouter = express.Router();
@@ -37,6 +39,12 @@ participationrouter.get(
 participationrouter.get("/participation/user/:userId", getParticipationsByUser);
 participationrouter.put(`/participation/user/approve`, userApproveById);
 participationrouter.put(`/participation/user/reject`, userRejectById);
+
+participationrouter.put(
+  `/particepant/attended`,
+  passport.authenticate("jwt2", { session: false }),
+  parAttended
+);
 
 participationrouter.post(
   "/participation/:eventId",
