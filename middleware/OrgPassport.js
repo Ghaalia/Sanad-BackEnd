@@ -10,9 +10,9 @@ const localStrategy2 = new LocalStartegy(
   async (email, password, done) => {
     try {
       const user = await Organization.findOne({ email: email });
-      if (!user) return done({ message: "Email/Password is wrong" });
+      if (!user) return done({ message: "Email or Password is wrong" });
       const checkpw = await bcrypt.compare(password, user.password);
-      if (!checkpw) return done({ message: "Email or  Password is wrong" });
+      if (!checkpw) return done({ message: "Email or Password is wrong" });
 
       if (user.isAccepted == "Pending")
         return done({ message: "Account is waiting for approval" });
