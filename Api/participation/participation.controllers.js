@@ -1,57 +1,45 @@
 const Event = require("../../models/Event");
 const Participation = require("../../models/Participation");
+const User = require("../../models/User");
 const { use } = require("./participation.routes");
 require("dotenv").config;
 
-// // Create a new participation
-// exports.createParticipation = async (req, res, next) => {
-//   try {
-//     const { status, user, event, attended, rejection_msg } = req.body;
+exports.parApproveById = async (req, res, next) => {
+  try {
+    const particepant = await Participation.findById(req.body);
+    console.log(particepant);
+    if (!particepant) return res.status(404).json("particepant not found");
+    await particepant.updateOne({ status: "Accepted" });
+    res.status(204).json(particepant);
+  } catch (error) {
+    next(error);
+  }
+};
 
-//     const participation = new Participation({
-//       status,
-//       user,
-//       event,
-//       attended,
-//       rejection_msg,
-//     });
+exports.parRejectById = async (req, res, next) => {
+  try {
+    const particepant = await Participation.findById(req.body);
+    console.log(particepant);
+    if (!particepant) return res.status(404).json("particepant not found");
+    await particepant.updateOne({ status: "Rejected" });
+    //pull
+    res.status(204).end().json(particepant);
+  } catch (error) {
+    next(error);
+  }
+};
 
-//     await participation.save();
-
-//     res.status(201).json(participation);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-// Get all participations for a specific event
-// exports.getParticipationsByEvent = async (req, res, next) => {
-//   try {
-//     const eventId = req.params.eventId;
-//     const participations = await Participation.findOne({
-//       event: eventId,
-//       user: req.user._id,
-//     });
-
-//     res.status(200).json(participations);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
-
-// exports.getParticipationsByEvent = async (req, res, next) => {
-//   try {
-//     const eventId = req.params.eventId;
-//     const participations = await Participation.findOne({
-//       event: eventId,
-//       user: req.user._id,
-//     }).populate("volunteer_list");
-
-//     res.status(200).json(participations);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+exports.parAttended = async (req, res, next) => {
+  try {
+    const particepant = await Participation.findById(req.body);
+    console.log(particepant);
+    if (!particepant) return res.status(404).json("particepant not found");
+    await particepant.updateOne({ attended: true });
+    res.status(204).json(particepant);
+  } catch (error) {
+    next(error);
+  }
+};
 
 exports.getParticipationsByEvent = async (req, res, next) => {
   try {
@@ -194,6 +182,22 @@ exports.requestParticipation = async (req, res, next) => {
     next(error);
   }
 };
+
+// exports.addparticipationToUser = async (req, res, next) => {
+//   try {
+//     console.log("add par from be");
+//     const particepant = await Participation.findById(req.body._id);
+//     const user = await User.findById(req.body.user._id);
+
+//     await user.updateOne({
+//       $push: { volunteer_events: particepant },
+//     });
+
+//     res.status(204).end();
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 exports.getParticipationsbyId = async (req, res, next) => {
   try {
