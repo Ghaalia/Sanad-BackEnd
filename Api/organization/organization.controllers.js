@@ -57,6 +57,7 @@ exports.signin = async (req, res, next) => {
     return res.status(200).json({ token });
   } catch (error) {
     next(error);
+    console.log(error);
   }
 };
 
@@ -72,7 +73,6 @@ exports.getAllOrganizations = async (req, res, next) => {
 exports.OrgApproveById = async (req, res, next) => {
   try {
     const orgId = await Organization.findById(req.body);
-    console.log(orgId);
     if (!orgId) return res.status(404).json("Organization not found");
     await orgId.updateOne({ isAccepted: "Accepted" });
     res.status(204).end();
