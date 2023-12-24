@@ -11,8 +11,8 @@ const userrouter = require("./Api/user/user.routes");
 const OrganizationRouter = require("./Api/organization/organization.routes");
 const eventrouter = require("./api/Event/event.routes");
 const categoryrouter = require("./Api/EventCategory/eventcategory.routes");
-// const notificationRouter = require("./Api/notification/notification.routes");
-// const deviceRouter = require("./Api/device/device.routes");
+const notificationRouter = require("./Api/notification/notification.routes");
+const deviceRouter = require("./Api/device/device.routes");
 const pdfRouter = require("./Api/pdf/pdf.routes");
 
 const { localStrategy, jWTStrategy } = require("./middleware/passport");
@@ -42,12 +42,11 @@ app.use("/api", categoryrouter);
 app.use("/api", userrouter);
 app.use("/api", eventrouter);
 app.use("/api", OrganizationRouter);
-// app.use("/api", notificationRouter);
-// app.use("/api", deviceRouter);
 app.use("/api", userrouter);
-
 app.use("/api", participationrouter);
 app.use("/api", pdfRouter);
+app.use("/api", deviceRouter);
+app.use("/api", notificationRouter);
 app.use(uploadRoutes);
 
 // Not Found Path
