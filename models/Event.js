@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
+// const defaultImage = require("../media/event/Vector.png");
 
 const EventSchema = new mongoose.Schema({
   event_title: { type: String, required: true },
   event_image: {
     type: String,
     default:
+      // defaultImage,
       "https://www.sender.net/wp-content/uploads/2021/06/volunteer_newsletter_ideas_examples.png",
   },
   event_category: [
