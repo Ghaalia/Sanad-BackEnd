@@ -53,12 +53,9 @@ const EventSchema = new mongoose.Schema({
     // required: true
   },
   // location_coordinates: { type: JSON },
-  location_coordinates: {
-    type: {
-      latitude: Number,
-      longitude: Number,
-    },
-  },
+  lat: String,
+  lng: String,
+
   event_status: {
     type: String,
     // required: true

@@ -206,11 +206,14 @@ exports.createEvent = async (req, res, next) => {
     if (file) {
       data.event_image = file.path;
     }
-    data.user = user._id; // Set the user ID (assuming user is logged in and their ID is available)
+    data.organization = user._id; // Set the user ID (assuming user is logged in and their ID is available)
     console.log(data);
     console.log(Array.isArray(data.event_category));
     if (!Array.isArray(data.event_category)) {
       data.event_category = [data.event_category];
+    }
+    for (x in data.location_coordinates) {
+      console.log(x);
     }
     const newEvent = await Event.create(data);
 
