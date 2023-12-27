@@ -18,8 +18,8 @@ router.post(
 
 router.get("/image-gallery/:userId", getGalleryImages);
 
-router.post("/images/selected-unselected/:userId", getSelectedUnselectedImages);
+router.get("/images/selected-unselected/:userId", getSelectedUnselectedImages);
 
-router.post("/update-image-selection/:imageId", updateImageSelection);
+router.post("/update-image-selection/:userId", updateImageSelection);
 
 module.exports = router;

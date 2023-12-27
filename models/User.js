@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema({
   donation_album: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "DonationAlbum",
+      ref: "DonationImage",
     },
   ],
   volunteer_record: { type: Number },

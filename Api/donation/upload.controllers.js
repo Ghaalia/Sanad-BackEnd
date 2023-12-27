@@ -63,7 +63,7 @@ const uploadImages = async (req, res) => {
       return image.originalname.includes("Furniture");
     })
     .map((image) => {
-      return image.path;
+      return { image: image.path, isSelected: false };
     });
 
   const devicesImages = req.files
@@ -71,7 +71,7 @@ const uploadImages = async (req, res) => {
       return image.originalname.includes("Devices");
     })
     .map((image) => {
-      return image.path;
+      return { image: image.path, isSelected: false };
     });
 
   const electronicsImages = req.files
@@ -79,7 +79,7 @@ const uploadImages = async (req, res) => {
       return image.originalname.includes("Electronics");
     })
     .map((image) => {
-      return image.path;
+      return { image: image.path, isSelected: false };
     });
 
   const clothesImages = req.files
@@ -87,10 +87,8 @@ const uploadImages = async (req, res) => {
       return image.originalname.includes("Clothes");
     })
     .map((image) => {
-      return image.path;
+      return { image: image.path, isSelected: false };
     });
-
-  console.log(furnitureImages);
 
   //SHOW ALL PREV DATA OF IMAGES
   donationFurniture.imageData = [
@@ -168,17 +166,107 @@ const getSelectedUnselectedImages = async (req, res, next) => {
 
 const updateImageSelection = async (req, res) => {
   try {
-    const imageId = req.params.imageId;
-    const isSelected = req.body.isSelected; // true or false, ensure this is correctly passed from the frontend
+    const userId = req.params.userId;
 
     // Validate isSelected is a Boolean
-    if (typeof isSelected !== "boolean") {
-      return res
-        .status(400)
-        .json({ message: "Invalid isSelected value. Must be a boolean." });
-    }
+    let donationFurniture = await DonationImage.findOne({
+      user: userId,
+      category: "Furniture",
+    });
+    let donationDevices = await DonationImage.findOne({
+      user: userId,
+      category: "Devices",
+    });
+    let donationElectronics = await DonationImage.findOne({
+      user: userId,
+      category: "Electronics",
+    });
+    let donationClothes = await DonationImage.findOne({
+      user: userId,
+      category: "Clothes",
+    });
+    // console.log(req.body);
+    console.log("BEFORE");
+    console.log(donationFurniture.imageData);
 
-    await DonationImage.findByIdAndUpdate(imageId, { isSelected });
+    const furnitureImages = req.body?.selectedImages
+      ?.filter((image) => {
+        return image.image.includes("Furniture");
+      })
+      .map((image) => {
+        return { image: image.image, isSelected: true };
+      });
+
+    const devicesImages = req.body?.selectedImages
+      .filter((image) => {
+        return image.image.includes("Devices");
+      })
+      .map((image) => {
+        return { image: image.image, isSelected: true };
+      });
+
+    const electronicsImages = req.body?.selectedImages
+      .filter((image) => {
+        return image.image.includes("Electronics");
+      })
+      .map((image) => {
+        return { image: image.image, isSelected: true };
+      });
+
+    const clothesImages = req.body?.selectedImages
+      .filter((image) => {
+        return image.image.includes("Clothes");
+      })
+      .map((image) => {
+        return { image: image.image, isSelected: true };
+      });
+
+    donationFurniture.imageData = donationFurniture.imageData.map((image) => {
+      const found = furnitureImages.find(
+        (image_) => image_.image == image.image
+      );
+      if (found) {
+        return found;
+      } else {
+        return image;
+      }
+    });
+
+    await donationFurniture.save();
+
+    donationDevices.imageData = donationDevices.imageData.map((image) => {
+      const found = devicesImages.find((image_) => image_.image == image.image);
+      if (found) {
+        return found;
+      } else {
+        return image;
+      }
+    });
+    await donationDevices.save();
+
+    donationElectronics.imageData = donationElectronics.imageData.map(
+      (image) => {
+        const found = electronicsImages.find(
+          (image_) => image_.image == image.image
+        );
+        if (found) {
+          return found;
+        } else {
+          return image;
+        }
+      }
+    );
+    await donationElectronics.save();
+
+    donationClothes.imageData = donationClothes.imageData.map((image) => {
+      const found = clothesImages.find((image_) => image_.image == image.image);
+      if (found) {
+        return found;
+      } else {
+        return image;
+      }
+    });
+    await donationClothes.save();
 
     res.status(200).json({ message: "Image selection updated successfully" });
   } catch (error) {

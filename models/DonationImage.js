@@ -2,7 +2,12 @@ const mongoose = require("mongoose");
 
 const DonationImageSchema = new mongoose.Schema({
   category: String,
-  imageData: [String],
+  imageData: [
+    {
+      image: String,
+      isSelected: Boolean,
+    },
+  ],
   isSelected: Boolean,
   user: {
     type: mongoose.Schema.Types.ObjectId,
