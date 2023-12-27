@@ -227,7 +227,7 @@ exports.createEvent = async (req, res, next) => {
     // Update the user's events (assuming there's a relationship between users and events)
     await user.updateOne({ $push: { events: newEvent._id } });
 
-    // Send response
+    await // Send response
     res.status(201).json({
       message: `The event '${newEvent.event_title}' has been added successfully`,
       event: newEvent,
@@ -280,7 +280,7 @@ exports.createEvent = async (req, res, next) => {
 
 exports.getOrgEvent = async (req, res, next) => {
   try {
-    console.log(req.user._id);
+    // console.log(req.user._id);
     const event = await Event.find({ organization: req.user._id });
     if (!event) return res.status(404).json("events not found");
     res.status(200).json(event);
