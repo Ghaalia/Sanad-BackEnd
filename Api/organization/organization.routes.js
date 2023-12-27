@@ -39,12 +39,6 @@ OrganizationRouter.get(
   getProfile
 );
 
-// OrganizationRouter.post(
-//   "/org/event/:eventcategoryId",
-//   passport.authenticate("jwt2", { session: false }),
-//   createEvent
-// );
-
 OrganizationRouter.post(
   "/org/create-event",
   upload.single("event_image"),
