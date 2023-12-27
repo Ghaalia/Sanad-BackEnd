@@ -18,7 +18,7 @@ router.post(
 
 router.get("/image-gallery/:userId", getGalleryImages);
 
-router.get("/images/selected-unselected/:userId", getSelectedUnselectedImages);
+router.post("/images/selected-unselected/:userId", getSelectedUnselectedImages);
 
 router.post("/update-image-selection/:imageId", updateImageSelection);
 

@@ -1,15 +1,24 @@
 const Event = require("../../models/Event");
 const Participation = require("../../models/Participation");
 const User = require("../../models/User");
+const { sendNotification } = require("../../utils/sendNotification");
 const { use } = require("./participation.routes");
 require("dotenv").config;
 
 exports.parApproveById = async (req, res, next) => {
   try {
-    const particepant = await Participation.findById(req.body);
+    const particepant = await Participation.findById(req.body).populate(
+      "event"
+    );
     console.log(particepant);
     if (!particepant) return res.status(404).json("particepant not found");
     await particepant.updateOne({ status: "Accepted" });
+
+    await sendNotification({
+      title: particepant.event.event_title,
+      description: "Accepted",
+      userId: particepant.user,
+    });
     res.status(204).json(particepant);
   } catch (error) {
     next(error);
@@ -44,12 +53,11 @@ exports.parAttended = async (req, res, next) => {
 exports.getParticipationsByEvent = async (req, res, next) => {
   try {
     const eventId = req.params.eventId;
-    const participations = await Event?.volunteer_list?.find();
+    const participations = await Event.findById(eventId).populate(
+      "volunteer_list"
+    );
 
-    console.log(participations);
-    console.log(eventId);
-
-    res.status(200).json(participations);
+    res.status(200).json(participations.volunteer_list);
   } catch (error) {
     next(error);
   }
@@ -96,7 +104,6 @@ exports.getParticipationsByUser = async (req, res, next) => {
 
 exports.userApproveById = async (req, res, next) => {
   try {
-    const eventID = req.params.eventID; // Assuming the ID is in the URL parameters
     const userId = await User.findById(req.body);
     if (!userId) return res.status(404).json("user not found");
     await userId.participations.updateOne({ isAccepted: "Accepted" });
@@ -111,7 +118,7 @@ exports.userApproveById = async (req, res, next) => {
     if (!updatedParticipation) {
       return res.status(404).json("Participation not found");
     }
-
+    await sendNotification({ title: "", description: "", userId: userId });
     res.status(204).end();
   } catch (error) {
     next(error);
@@ -157,6 +164,12 @@ exports.requestParticipation = async (req, res, next) => {
         message: "You can't participate twice in the same event",
       });
     }
+
+    await sendNotification({
+      title: event.event_title,
+      description: "Your participation status is pending...",
+      userId: req.user._id,
+    });
 
     const participation = await Participation.create({
       event: event,

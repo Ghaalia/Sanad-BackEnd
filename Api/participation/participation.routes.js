@@ -44,7 +44,6 @@ participationrouter.put(
 
 participationrouter.get(
   "/participation/event/:eventId",
-  passport.authenticate("jwt2", { session: false }),
   getParticipationsByEvent
 );
 

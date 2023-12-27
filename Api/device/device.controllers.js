@@ -3,10 +3,12 @@ const Device = require("../../models/Device");
 exports.registerDevice = async (req, res, next) => {
   try {
     const { token, userId } = req.body;
-    let device = await Device.findOne({ token });
+
+    console.log(token);
+    let device = await Device.findOne({ token: token.data });
 
     if (!device) {
-      device = new Device({ token, user: userId });
+      device = new Device({ token: token.data, user: userId });
       await device.save();
     }
 
