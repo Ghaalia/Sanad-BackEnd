@@ -3,6 +3,7 @@ const express = require("express");
 const {
   getAllCategories,
   createCategory,
+  getCategoryById,
 } = require("./eventcategory.controllers");
 
 const categoryrouter = express.Router();
@@ -18,4 +19,5 @@ categoryrouter.post(
   createCategory
 );
 
+categoryrouter.get("/categoryID", getCategoryById);
 module.exports = categoryrouter;

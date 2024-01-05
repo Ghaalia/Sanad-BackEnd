@@ -40,11 +40,19 @@ exports.parRejectById = async (req, res, next) => {
 
 exports.parAttended = async (req, res, next) => {
   try {
-    const particepant = await Participation.findById(req.body);
+    const particepant = await Participation.findById(req.body).populate(
+      "event"
+    );
     console.log(particepant);
     if (!particepant) return res.status(404).json("particepant not found");
     await particepant.updateOne({ attended: true });
     res.status(204).json(particepant);
+
+    await sendNotification({
+      title: particepant.event.event_title,
+      description: "CONGRATULATIONS !! You have earned 5 points ",
+      userId: particepant.user,
+    });
   } catch (error) {
     next(error);
   }
